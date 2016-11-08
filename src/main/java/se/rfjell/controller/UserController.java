@@ -4,7 +4,11 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import se.rfjell.config.MyUserDetailsService;
 import se.rfjell.model.User;
 import se.rfjell.service.UserService;;
 
@@ -22,6 +27,9 @@ import se.rfjell.service.UserService;;
 public class UserController {
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	MyUserDetailsService userDetailsService;
 
 	@GetMapping("/addUser")
 	public String getAddUserPage(Model model){
@@ -37,6 +45,12 @@ public class UserController {
 
 		userService.save(user);
 		redirAttr.addFlashAttribute("message", "User added");
+
+		//Auto sign in newly created user
+		UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+		Authentication auth = new UsernamePasswordAuthenticationToken(userDetails.getUsername(),userDetails.getPassword(),userDetails.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(auth);
+		
 		return "redirect:index";
 
 	}
