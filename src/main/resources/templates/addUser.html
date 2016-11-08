@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>User registration form</title>
+	<meta charset="utf-8" />
+	<!--TODO: add password confirmation -->
+
+	<!-- Bootstrap References -->
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" media="all"  
+		href="../static/css/main.css" th:href="@{/css/main.css}" />
+</head>
+<body>
+	<div class="container">
+		<h1 class="" th:inline="text">User registration form</h1>
+
+		<form action="#" class="form-horizontal" th:action="@{/addUser}" th:object="${user}" method="post">
+			<div class="form-error" th:if="${#fields.hasErrors('*')}">
+				<ul class="form-error" th:if="${#fields.hasErrors('*')}">
+					<li th:each="err : ${#fields.errors('*')}" th:text="${err}">All form errors are displayed here</li>
+				</ul>
+			</div>
+
+			<div class="form-group">
+				<label for="email" class="controle-label"> Email: </label>
+				<input type="email" id="email" placeholder="Email" class="col-sm-3 form-control" th:field="*{username}" />
+				<span class="form-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error message goes here</span>
+			</div>
+
+			<div class="form-group">
+				<label for="password" class="controle-label"> Password: </label>
+				<input type="password" id="password" placeholder="Password" class="col-sm-3 form-control" th:field="*{password}" />
+				<span class="form-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error message goes here</span>
+			</div>
+
+			<div class="form-group">
+				<label class="controle-label"> First name: </label>
+				<input type="text" placeholder="First name" class="col-sm-3 form-control" th:field="*{firstName}" />
+				<span class="form-error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name error message goes here</span>
+			</div>
+
+			<div class="form-group">
+				<label class="controle-label"> Last name: </label>
+				<input type="text" placeholder="Last name" class="col-sm-3 form-control" th:field="*{lastName}" />
+				<span class="form-error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name error message goes here</span>
+			</div>
+
+			<div class="form-group">
+				<label class="controle-label"> Address: </label>
+				<input type="text" placeholder="Address" class="col-sm-3 form-control" th:field="*{address}" />
+				<span class="form-error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address error message goes here</span>
+			</div>
+
+			<div class="form-group">
+				<label class="controle-label"> Zip code: </label>
+				<input type="text" placeholder="Zip code" class="col-sm-3 form-control" th:field="*{zipCode}" />
+				<span class="form-error" th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}">Zip code error message goes here</span>
+			</div>
+
+			<div class="form-group">
+				<label class="controle-label"> Telephone: </label>
+				<input type="text" placeholder="Telephone" class="col-sm-3 form-control" th:field="*{telephone}" />
+				<span class="form-error" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}">Telephone error message goes here</span>
+			</div>
+
+			<div class="form-group">
+				<label class="controle-label"> Gender: </label>
+				<select class="col-sm-3 form-control">
+<!-- 				<select class="col-sm-3 form-control" th:field="*{gender}" th:remove="all-but-first" > -->
+<!-- 					<option th:each="gender : ${genders}" th:value="${gender}" th:text="${gender}">Male</option> -->
+					<option>Secret</option>
+					<option>Female</option>
+					<option>Male</option>
+				</select>
+				<span class="form-error" th:if="${#fields.hasErrors('gender')}" th:errors="*{zipCode}">Gender error message goes here</span>
+			</div>
+
+			<div class="form-group" > 
+				<div class="col-sm-offset-3 ">
+					<button type="submit" class="btn btn-success btn-lg col-sm-3">Submit</button> <button type="reset" class="btn btn-warning btn-lg col-sm-3">Reset</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
