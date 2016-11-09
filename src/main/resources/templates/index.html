@@ -3,11 +3,22 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-	<title></title>
+	<title>Test Portal</title>
+	<!-- Bootstrap References -->
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" media="all"  
+		href="../static/css/main.css" th:href="@{/css/main.css}" />
+
 </head>
 <body>
+	<div th:replace="fragments/header :: header"></div>
 	<p th:text="${message}">status text</p>
-	<h1>Welcome!</h1>
+	<h1>Welcome <span th:text=" ${#httpServletRequest.remoteUser}"></span>!</h1>
 
 	<p>
 		Click <a th:href="@{/hello}">here</a> to see a greeting.
