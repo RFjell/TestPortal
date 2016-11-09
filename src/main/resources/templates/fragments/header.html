@@ -31,8 +31,19 @@
 				</ul>
 				<form th:action="@{/logout}" id="sign-out-form" method="post"></form>
 				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown" id="menuLogin" sec:authorize="isAnonymous()">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="navLogin">
+							<span class="glyphicon glyphicon-log-in"></span> Login
+						</a>
+						<div class="dropdown-menu" style="padding: 17px;">
+							<form th:action="@{/login}" method="post" class="form" id="formLogin">
+								<input name="username" id="username" placeholder="Username" type="text" />
+								<input name="password" id="password" placeholder="Password" type="password" /><br/>
+								<button type="submit" id="btnLogin" class="btn btn-success btn-block">Login</button>
+							</form>
+						</div>
+					</li>
 					<li sec:authorize="isAnonymous()"><a th:href="@{/signup}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-					<li sec:authorize="isAnonymous()"><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 					<li sec:authorize="hasRole('ADMIN')"><a href="#"> Admin</a></li>
 					<li sec:authorize="isAuthenticated()"><a href="#"><span class="glyphicon glyphicon-user"></span> Edit Personal Info</a></li>
 					<li sec:authorize="isAuthenticated()">
