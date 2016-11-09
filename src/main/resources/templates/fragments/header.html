@@ -24,28 +24,27 @@
 				</button>
 				<a class="navbar-brand" th:href="@{/}">WebSiteName</a>
 			</div>
+
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li><a href="#">List of tests</a></li>
 					<li sec:authorize="hasRole('USER')"><a href="#">My booked tests</a></li>
 				</ul>
+
 				<form th:action="@{/logout}" id="sign-out-form" method="post"></form>
+
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown" id="menuLogin" sec:authorize="isAnonymous()">
+					<li sec:authorize="isAnonymous()" class="dropdown" id="menuLogin">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="navLogin">
 							<span class="glyphicon glyphicon-log-in"></span> Login
 						</a>
-						<div class="dropdown-menu" style="padding: 17px;">
-							<form th:action="@{/login}" method="post" class="form" id="formLogin">
-								<input name="username" id="username" placeholder="Username" type="text" />
-								<input name="password" id="password" placeholder="Password" type="password" /><br/>
-								<button type="submit" id="btnLogin" class="btn btn-success btn-block">Login</button>
-							</form>
+						<div class="dropdown-menu" style="padding: 17px; width: 300px;">
+							<div th:replace="fragments/login-form :: login-form"></div>
 						</div>
 					</li>
 					<li sec:authorize="isAnonymous()"><a th:href="@{/signup}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-					<li sec:authorize="hasRole('ADMIN')"><a href="#"> Admin</a></li>
-					<li sec:authorize="isAuthenticated()"><a href="#"><span class="glyphicon glyphicon-user"></span> Edit Personal Info</a></li>
+					<li sec:authorize="hasRole('ADMIN')"><a href="@{/admin"> Admin</a></li>
+					<li sec:authorize="isAuthenticated()"><a href="@{/editinfo"><span class="glyphicon glyphicon-user"></span> Edit Personal Info</a></li>
 					<li sec:authorize="isAuthenticated()">
 						<a href="#" onclick="document.getElementById('sign-out-form').submit()">
 							<span class="glyphicon glyphicon-log-out"></span> Sign Out
