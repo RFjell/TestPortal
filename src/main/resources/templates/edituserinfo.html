@@ -20,9 +20,9 @@
 <body>
 	<div th:replace="fragments/header :: header"></div>
 	<div class="container">
-		<h1 class="" th:inline="text">User registration form</h1>
+		<h1 class="" th:inline="text">Edit user info form</h1>
 
-		<form action="#" class="form-horizontal" th:action="@{/signup}" th:object="${user}" method="post">
+		<form action="#" class="form-horizontal" th:action="@{/edituserinfo}" th:object="${user}" method="post">
 			<div class="form-error" th:if="${#fields.hasErrors('*')}">
 				<ul class="form-error" th:if="${#fields.hasErrors('*')}">
 					<li th:each="err : ${#fields.errors('*')}" th:text="${err}">All form errors are displayed here</li>
@@ -32,15 +32,20 @@
 			<div th:replace="fragments/user-form :: user-form"></div>
 
 			<div class="form-group">
-				<label for="password" class="control-label"> Password: </label>
-				<input type="password" id="password" placeholder="Password" class="col-sm-3 form-control" th:field="*{password}"  required="required" />
+				<label for="password" class="control-label"> Your new password (leave empty if you don't want to change it): </label>
+				<input type="password" id="password" placeholder="New Password" class="col-sm-3 form-control" th:field="*{password}" />
 				<span class="form-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error message goes here</span>
+			</div>
+
+			<div class="form-group">
+				<label for="currentPassword" class="control-label"> Your current password: </label>
+				<input type="password" id="currentPassword" name="currentPassword" placeholder="Current Password" class="col-sm-3 form-control"  required="required" />
+				<p th:text="${error}">Password error message</p>
 			</div>
 
 			<div class="form-group" > 
 				<div class="col-sm-offset-3 ">
-					<button type="submit" class="btn btn-success btn-lg col-sm-3">Sign up</button>
-					<button type="reset" class="btn btn-warning btn-lg col-sm-3">Reset</button>
+					<button type="submit" class="btn btn-success btn-lg col-sm-3">Update user info</button>
 				</div>
 			</div>
 		</form>

@@ -42,9 +42,9 @@
 							<div th:replace="fragments/login-form :: login-form"></div>
 						</div>
 					</li>
-					<li sec:authorize="isAnonymous()"><a th:href="@{/signup}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-					<li sec:authorize="hasRole('ADMIN')"><a href="@{/admin"> Admin</a></li>
-					<li sec:authorize="isAuthenticated()"><a href="@{/editinfo"><span class="glyphicon glyphicon-user"></span> Edit Personal Info</a></li>
+					<li sec:authorize="isAnonymous()"><a href="#" th:href="@{/signup}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+					<li sec:authorize="hasRole('ADMIN')"><a href="#" th:href="@{/admin}"> Admin</a></li>
+					<li sec:authorize="isAuthenticated()"><a href="#" th:href="@{/edituserinfo}"><span class="glyphicon glyphicon-user"></span> Edit Personal Info</a></li>
 					<li sec:authorize="isAuthenticated()">
 						<a href="#" onclick="document.getElementById('sign-out-form').submit()">
 							<span class="glyphicon glyphicon-log-out"></span> Sign Out

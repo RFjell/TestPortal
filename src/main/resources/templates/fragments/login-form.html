@@ -15,11 +15,10 @@
 		href="../static/css/main.css" th:href="@{/css/main.css}" />	
 </head>
 <body>
-	<div th:replace="fragments/header :: header"></div>
 	<div class="container">
 		<div class="col-sm-6 col-md-4 col-md-offset-4">
 			<p th:if="${param.error}" class="error">Invalid username or password.</p>
-			<div class="account-wall" th:fragment="login-form">
+			<div th:fragment="login-form">
 				<form th:action="@{/login}" method="post" class="form-signin">
 					<input class="form-control" placeholder="Email" type="text" name="username" autofocus="autofocus" />
 					<input class="form-control" placeholder="Password" type="password" name="password" />
