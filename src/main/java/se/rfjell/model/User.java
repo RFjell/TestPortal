@@ -17,12 +17,8 @@ public class User {
 	private long id;
 	@NotNull
 	@NotEmpty
-	@Size(min=2, max=30)
 	private String username;
 	
-	@NotEmpty
-	@NotNull
-	@Size(min=2, max=80)
 	private String password;
 	private String role;
 	private String firstName;

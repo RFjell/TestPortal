@@ -48,33 +48,39 @@ public class UserController {
 
 		//Auto sign in newly created user
 		UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
-		Authentication auth = new UsernamePasswordAuthenticationToken(userDetails.getUsername(),userDetails.getPassword(),userDetails.getAuthorities());
+		Authentication auth = new UsernamePasswordAuthenticationToken(userDetails.getUsername(),
+								userDetails.getPassword(),userDetails.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		
 		return "redirect:index";
 
 	}
 
-	@GetMapping("/updateUser")
+	@GetMapping("/edituserinfo")
 	public String getUpdateUserPage(HttpSession session, Model model){
 		User user = getLoggedInUser(session);
 		model.addAttribute("user", user);
 
-		return "updateUser";
+		return "edituserinfo";
 	}
 
-	@PostMapping("/updateUser")
-	public String updateUser(@Valid User newUserInfo, BindingResult result, @RequestParam String newPassword, HttpSession session, RedirectAttributes redirAttr){
-		User user = getLoggedInUser(session);
-
+	@PostMapping("/edituserinfo")
+	public String updateUser(@Valid User newUserInfo, BindingResult result, 
+								@RequestParam String currentPassword, HttpSession session, 
+								RedirectAttributes redirAttr, Model model){
 		if(result.hasErrors()) {
-			return "updateUser";
+			return "edituserinfo";
 		}
 
-		userService.update(user, newUserInfo, newPassword);
+		User user = getLoggedInUser(session);
+
+		if(userService.update(user, newUserInfo, currentPassword) == null) {
+			model.addAttribute("error", "Wrong password! Info not updated.");
+			return "edituserinfo";
+		}
 
 		redirAttr.addFlashAttribute("message", "User info updated");
-		return "index";
+		return "redirect:index";
 
 	}
 

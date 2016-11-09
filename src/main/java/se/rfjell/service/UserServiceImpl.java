@@ -38,11 +38,36 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User update(User user, User newUserInfo, String newPassword) {
-		if( newPassword != null && newPassword.trim().length() > 0  ) {
-			changePassword(user, newPassword);
-		}
+	public User update(User user, User newUserInfo, String currentPassword) {
+		BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
+		
+		if( !bcpe.matches(currentPassword, user.getPassword()) )
+			return null;
 
+		if( newUserInfo.getPassword() != null && newUserInfo.getPassword().trim().length() > 0  ) {
+			changePassword(user, newUserInfo.getPassword());
+		}
+		if( newUserInfo.getAddress() != null && newUserInfo.getAddress().trim().length() > 0){
+			user.setAddress(newUserInfo.getAddress());
+		}
+		if( newUserInfo.getFirstName() != null && newUserInfo.getFirstName().trim().length() > 0){
+			user.setFirstName(newUserInfo.getFirstName());
+		}
+		if( newUserInfo.getLastName() != null && newUserInfo.getLastName().trim().length() > 0){
+			user.setLastName(newUserInfo.getLastName());
+		}
+		if( newUserInfo.getZipCode() != null && newUserInfo.getZipCode().trim().length() > 0){
+			user.setZipCode(newUserInfo.getZipCode());
+		}
+		if( newUserInfo.getUsername() != null && newUserInfo.getUsername().trim().length() > 0){
+			user.setUsername(newUserInfo.getUsername());
+		}
+		if( newUserInfo.getGender() != null && newUserInfo.getGender().trim().length() > 0){
+			user.setGender(newUserInfo.getGender());
+		}
+		if( newUserInfo.getTelephone() != null && newUserInfo.getTelephone().trim().length() > 0){
+			user.setTelephone(newUserInfo.getTelephone());
+		}
 		return userRepository.save(user);
 	}
 
