@@ -31,16 +31,16 @@ public class UserController {
 	@Autowired
 	MyUserDetailsService userDetailsService;
 
-	@GetMapping("/addUser")
-	public String getAddUserPage(Model model){
+	@GetMapping("/signup")
+	public String getSignupPage(Model model){
 		model.addAttribute("user", new User());
-		return "addUser";
+		return "signup";
 	}
 
-	@PostMapping("/addUser")
-	public String addUser(@Valid User user, BindingResult result, RedirectAttributes redirAttr){
+	@PostMapping("/signup")
+	public String signup(@Valid User user, BindingResult result, RedirectAttributes redirAttr){
 		if(result.hasErrors()) {
-			return "addUser";
+			return "signup";
 		}
 
 		userService.save(user);
