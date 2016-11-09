@@ -22,7 +22,7 @@
 	<div class="container">
 		<h1 class="" th:inline="text">User registration form</h1>
 
-		<form action="#" class="form-horizontal" th:action="@{/addUser}" th:object="${user}" method="post">
+		<form action="#" class="form-horizontal" th:action="@{/signup}" th:object="${user}" method="post">
 			<div class="form-error" th:if="${#fields.hasErrors('*')}">
 				<ul class="form-error" th:if="${#fields.hasErrors('*')}">
 					<li th:each="err : ${#fields.errors('*')}" th:text="${err}">All form errors are displayed here</li>
