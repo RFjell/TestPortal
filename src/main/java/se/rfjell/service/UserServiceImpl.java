@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 
 import se.rfjell.model.User;
 import se.rfjell.repository.UserRepository;
+import se.rfjell.util.Mail;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private Mail mail;
 	
 	@Override
 	public User save(User user) {
@@ -22,7 +26,7 @@ public class UserServiceImpl implements UserService {
 		user.setRole("USER");
 
 		//Send mail
-		//sendMail(user);
+		//mail.send("", user.getEmail(), "Subject", "Body");
 
 		return userRepository.save(user);
 	}

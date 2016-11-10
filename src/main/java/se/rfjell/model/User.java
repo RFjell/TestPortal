@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -30,6 +29,9 @@ public class User {
 	
 	public String getAddress() {
 		return address;
+	}
+	public String getEmail() {
+		return username;
 	}
 	public String getFirstName() {
 		return firstName;
