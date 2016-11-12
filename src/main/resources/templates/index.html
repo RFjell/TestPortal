@@ -17,11 +17,16 @@
 </head>
 <body>
 	<div th:replace="fragments/header :: header"></div>
-	<p th:text="${message}">status text</p>
-	<h1>Welcome <span th:text=" ${#httpServletRequest.remoteUser}"></span>!</h1>
+	<div class="container">
+		<div th:if="${message != null}" class="alert alert-info" data-dismiss="alert">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> 
+			<p th:text="${message}">status text</p>
+		</div>
 
-	<p>
-		Click <a th:href="@{/hello}">here</a> to see a greeting.
-	</p>
+		<h1>Welcome<span th:if="${#httpServletRequest.remoteUser}" th:text="' ' + ${#httpServletRequest.remoteUser}"></span>!</h1>
+		<p>
+			Click <a th:href="@{/hello}">here</a> to see a greeting.
+		</p>
+	</div>
 </body>
 </html>
