@@ -90,14 +90,10 @@ public class UserController {
 	}
 	
 	private User getLoggedInUser(HttpSession session) {
-		User user = (User) session.getAttribute("user");
-		if(user == null) {
-			SecurityContextImpl sci = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
-			String username = sci.getAuthentication().getName();
+		SecurityContextImpl sci = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
+		String username = sci.getAuthentication().getName();
 
-			user = userService.findByUsername(username);
-			session.setAttribute("user", user);
-		}
+		User user = userService.findByUsername(username);
 		return user;
 	}
 }
