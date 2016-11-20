@@ -17,14 +17,21 @@ public class MyUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		se.rfjell.model.User user = userRepository.findByUsername(username);
 		if( user == null ) {
 			throw new UsernameNotFoundException("Username " + username + " not found");
 		}
-		return new org.springframework.security.core.userdetails.User(username, user.getPassword(), getGrantedAuthorities(user));
+		Boolean enabled = user.getEnabled() == 'Y' ? true : false;
+		return new org.springframework.security.core.userdetails.User(username, 
+								user.getPassword(), 
+								enabled, /* is enabled */ 
+								true, /* account non expired */
+								true, /* credentials non expired */
+								true, /* account not locked */
+								getGrantedAuthorities(user));
 	}
 
 	private Collection<? extends GrantedAuthority> getGrantedAuthorities(se.rfjell.model.User user) {

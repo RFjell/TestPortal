@@ -19,5 +19,6 @@ public interface UserService {
 
 	User findById(Long id);
 
+	User findByConfirmationLink(String id);
 
 }

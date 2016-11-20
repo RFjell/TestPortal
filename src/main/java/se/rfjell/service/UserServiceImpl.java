@@ -21,13 +21,20 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User save(User user) {
+		if( userRepository.findByUsername(user.getUsername()) != null)
+			return null;
 		changePassword(user, user.getPassword());
 
 		user.setRole("USER");
+		user.setEnabled('Y');
 
-		//Send mail
-		//mail.send("", user.getEmail(), "Subject", "Body");
+		//Email stuff
+/*		user.setEnabled('N');
 
+		//Send validation email
+		user.setConfirmationLink();
+		mail.sendValidationMail(user.getEmail(), user.getConfirmationLink());
+*/
 		return userRepository.save(user);
 	}
 
@@ -65,6 +72,7 @@ public class UserServiceImpl implements UserService {
 		}
 		if( newUserInfo.getUsername() != null && newUserInfo.getUsername().trim().length() > 0){
 			user.setUsername(newUserInfo.getUsername());
+			//send new confirmation email
 		}
 		if( newUserInfo.getGender() != null && newUserInfo.getGender().trim().length() > 0){
 			user.setGender(newUserInfo.getGender());
@@ -88,6 +96,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findById(Long id) {
 		return userRepository.findOne(id);
+	}
+	
+	@Override
+	public User findByConfirmationLink(String id){
+		User user = userRepository.findByConfirmationLink(id);
+		if(user != null) {
+			user.setEnabled('Y');
+			user.emptyConfirmationLink();
+			return userRepository.save(user);
+		}
+
+		return null;
 	}
 
 	private void changePassword(User user, String password) {

@@ -36,5 +36,5 @@ public class MailConfig {
 		mailSender.setPassword(mailProperties.getPassword());
 
 		return mailSender;
-	}	
+	}
 }
