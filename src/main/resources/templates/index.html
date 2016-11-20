@@ -23,10 +23,12 @@
 			<p th:text="${message}">status text</p>
 		</div>
 
-		<h1>Welcome<span th:if="${#httpServletRequest.remoteUser}" th:text="' ' + ${#httpServletRequest.remoteUser}"></span>!</h1>
-		<p>
-			Click <a th:href="@{/hello}">here</a> to see a greeting.
-		</p>
+		<div>
+			<h1>Welcome<span th:if="${#httpServletRequest.remoteUser}" th:text="' ' + ${#httpServletRequest.remoteUser}"></span>!</h1>
+			<p>
+				Click <a th:href="@{/hello}">here</a> to see a greeting.
+			</p>
+		</div>
 	</div>
 </body>
 </html>
