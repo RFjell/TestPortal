@@ -3,15 +3,21 @@ package se.rfjell.model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "USERS")
@@ -23,7 +29,12 @@ public class User {
 	@NotNull
 	@NotEmpty
 	private String username;
-	
+	@OneToMany(mappedBy="admin", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JsonIgnore
+	private List<Center> adminCenters;
+	@OneToMany(mappedBy="tester", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JsonIgnore
+	private List<StudentTest> studentTests;
 	private String password;
 	private String role;
 	private String firstName;
@@ -31,12 +42,19 @@ public class User {
 	private String telephone;
 	private String address;
 	private String gender;
+	private String city;
 	private String zipCode;
 	private String confirmationLink;
 	private char enabled;
-	
+
 	public String getAddress() {
 		return address;
+	}
+	public List<Center> getAdminCenters() {
+		return adminCenters;
+	}
+	public String getCity() {
+		return city;
 	}
 	public String getConfirmationLink() {
 		return confirmationLink;
@@ -65,6 +83,9 @@ public class User {
 	public String getRole() {
 		return role;
 	}
+	public List<StudentTest> getStudentTests() {
+		return studentTests;
+	}
 	public String getTelephone() {
 		return telephone;
 	}
@@ -77,9 +98,18 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public void setAdminCenters(List<Center> adminCenters) {
+		this.adminCenters = adminCenters;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
 	public void setConfirmationLink() {
 		String hash = hash();
 		this.confirmationLink = hash;
+	}
+	public void setConfirmationLink(String confirmationLink) {
+		this.confirmationLink = confirmationLink;
 	}
 	public void setEnabled(char enabled) {
 		this.enabled = enabled;
@@ -101,6 +131,9 @@ public class User {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public void setStudentTests(List<StudentTest> studentTests) {
+		this.studentTests = studentTests;
 	}
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
@@ -127,8 +160,5 @@ public class User {
 			nsae.printStackTrace();
 		}
 		return getUsername() + (new Date()).getTime();
-	}
-	public void emptyConfirmationLink(){
-		confirmationLink = "";
 	}
 }
