@@ -2,7 +2,10 @@ package se.rfjell.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -103,11 +106,19 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.findByConfirmationLink(id);
 		if(user != null) {
 			user.setEnabled('Y');
-			user.emptyConfirmationLink();
+			user.setConfirmationLink("");
 			return userRepository.save(user);
 		}
 
 		return null;
+	}
+
+	public User getLoggedInUser(HttpSession session) {
+		SecurityContextImpl sci = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
+		String username = sci.getAuthentication().getName();
+
+		User user = findByUsername(username);
+		return user;
 	}
 
 	private void changePassword(User user, String password) {

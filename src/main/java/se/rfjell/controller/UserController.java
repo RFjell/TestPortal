@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,7 +35,7 @@ public class UserController {
 		}
 
 		if( userService.save(user) == null) {
-			result.reject("email", "Email already in use.");
+			result.reject("username", "Email already in use.");
 			return "signup";
 		}
 
@@ -47,7 +46,7 @@ public class UserController {
 
 	@GetMapping("/edituserinfo")
 	public String getUpdateUserPage(HttpSession session, Model model){
-		User user = getLoggedInUser(session);
+		User user = userService.getLoggedInUser(session);
 		model.addAttribute("user", user);
 
 		return "edituserinfo";
@@ -61,7 +60,7 @@ public class UserController {
 			return "edituserinfo";
 		}
 
-		User user = getLoggedInUser(session);
+		User user = userService.getLoggedInUser(session);
 
 		if(userService.update(user, newUserInfo, currentPassword) == null) {
 			model.addAttribute("error", "Wrong password! Info not updated.");
@@ -77,12 +76,5 @@ public class UserController {
 	public @ResponseBody User getUserById(@PathVariable Long id){
 		return userService.findById(id);
 	}
-	
-	private User getLoggedInUser(HttpSession session) {
-		SecurityContextImpl sci = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
-		String username = sci.getAuthentication().getName();
 
-		User user = userService.findByUsername(username);
-		return user;
-	}
 }

@@ -2,6 +2,8 @@ package se.rfjell.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import se.rfjell.model.User;
 
 public interface UserService {
@@ -20,5 +22,7 @@ public interface UserService {
 	User findById(Long id);
 
 	User findByConfirmationLink(String id);
+
+	User getLoggedInUser(HttpSession session);
 
 }
