@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>List of tests</title>
+	<!-- Bootstrap References -->
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" media="all"  
+		href="../static/css/main.css" th:href="@{/css/main.css}" />
+	<script src="../static/js/testslist.js" th:src="@{/js/testslist.js}"></script>
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		<div class="welcometext col-md-5">
+			<h2>Test List of ----</h2>
+			<p>Find the Certification exams you need to highlight your skills
+				and further your career. Browse the exam list to find details about
+				skills measured, then click on the links to connect to preparation
+				materials, or schedule an appointment to take the exam with an exam
+				provider.</p>
+			<div>
+				<h4>Avaliable Courses</h4>
+			</div>
+			<div class="courselist">
+				<p>*Choose your course from providers.</p>
+			</div>
+			<select id="providers" onchange="getProviderTests()">
+				<option value="">--Please select one--</option>
+				<option th:each="provider : ${ providers }" th:value="${provider.id}" th:text="${provider.name}"></option>
+			</select>
+
+			<form id="list_form" action="#" method="post">
+				<input id="filterField" type="text" placeholder="type to filter"
+					oninput="updateTestList(this.value)" />
+
+				<br /> 
+				<select id="testlist" name="test" size="10" style="width: 300px"></select> 
+				<br /> 
+				<label>Date: </label>
+				<input name="testDate" placeholder="YYYY-MM-DD" />
+				<br />
+				<label>Center:</label>
+				<select name="center">
+					<option value="">--Please select one--</option>
+					<option th:each="center : ${ centers }" th:value="${center.id}" th:text="${center.name}"></option>
+				</select>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				<input type="submit" value="select" />
+			</form>
+
+			<!--              <iframe src="" height="400" width="300"></iframe> -->
+		</div>
+
+	</div>
+</body>
+</html>
