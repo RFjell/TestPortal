@@ -1,7 +1,8 @@
 function getProviderTests() {
 	var provider = $('#providers').find(":selected").val();
 
-	$.getJSON('/tests.json'+'?providerId='+provider, {
+	$.getJSON('/tests.json', {
+		providerId : provider,
 		ajax : 'true'
 	}, function(data){
 		var html = '';
