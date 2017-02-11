@@ -19,3 +19,18 @@
 	max-height: 300px;
 	opacity: 1;
 }
+
+#mytests-table, #mytests-table tr, #mytests-table th {
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+}
+
+#mytests-table {
+    width : 100%;
+    padding: 15px;
+    margin: 15px;
+}
+
+#mytests-table tr:not(.title):hover {
+    background-color: #e0e0e0;
+}

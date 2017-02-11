@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import se.rfjell.model.StudentTest;
 import se.rfjell.model.User;
 
 public interface UserService {
@@ -14,6 +15,8 @@ public interface UserService {
 	User findByUsername(String username);
 	
 	User update(User user, User newUserInfo, String newPassword);
+
+	User update(User user, StudentTest st);
 
 	User update(User user);
 

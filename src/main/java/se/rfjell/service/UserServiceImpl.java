@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import se.rfjell.model.StudentTest;
 import se.rfjell.model.User;
 import se.rfjell.repository.UserRepository;
 import se.rfjell.util.Mail;
@@ -88,6 +89,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User update(User user) {
+		return userRepository.save(user);
+	}
+
+	@Override
+	public User update(User user, StudentTest st) {
+		user.addStudentTest(st);
 		return userRepository.save(user);
 	}
 

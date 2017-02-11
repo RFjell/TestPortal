@@ -144,6 +144,9 @@ public class User {
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
+	public void addStudentTest(StudentTest st) {
+		studentTests.add(st);
+	}
 	private String hash(){
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");

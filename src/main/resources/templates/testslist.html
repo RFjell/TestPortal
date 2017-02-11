@@ -4,7 +4,7 @@
 <head>
 	<title>List of tests</title>
 	<!-- Bootstrap References -->
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -30,27 +30,27 @@
 			<div class="courselist">
 				<p>*Choose your course from providers.</p>
 			</div>
+			<p class="form-error" th:if="${error}" th:text="${error}">Error message goes here</p>
 			<select id="providers" onchange="getProviderTests()">
 				<option value="">--Please select one--</option>
 				<option th:each="provider : ${ providers }" th:value="${provider.id}" th:text="${provider.name}"></option>
 			</select>
 
-			<form id="list_form" action="#" method="post">
+			<form id="list_form" action="#" class="form-horizontal" th:action="@{/booktest}" method="post">
 				<input id="filterField" type="text" placeholder="type to filter"
 					oninput="updateTestList(this.value)" />
-
-				<br /> 
+				<br />
 				<select id="testlist" name="test" size="10" style="width: 300px"></select> 
-				<br /> 
+				<br />
+				<!-- TODO: Add time input -->
 				<label>Date: </label>
-				<input name="testDate" placeholder="YYYY-MM-DD" />
+				<input type="date" name="testDate" placeholder="YYYY-MM-DD" />
 				<br />
 				<label>Center:</label>
 				<select name="center">
 					<option value="">--Please select one--</option>
 					<option th:each="center : ${ centers }" th:value="${center.id}" th:text="${center.name}"></option>
 				</select>
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<input type="submit" value="select" />
 			</form>
 

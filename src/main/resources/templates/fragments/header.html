@@ -28,7 +28,7 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li><a href="#" th:href="@{/testslist}">List of tests</a></li>
-					<li sec:authorize="hasRole('USER')"><a href="#">My booked tests</a></li>
+					<li sec:authorize="hasRole('USER')"><a href="#" th:href="@{/mytests}">My booked tests</a></li>
 				</ul>
 
 				<form th:action="@{/logout}" id="sign-out-form" method="post"></form>
